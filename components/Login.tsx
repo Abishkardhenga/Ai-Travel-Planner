@@ -1,9 +1,11 @@
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import React from "react"
 import onboardinImg from "@/assets/images/onboardingImg.webp"
 import { Colors } from "@/constants/Colors"
+import { useRouter } from "expo-router"
 
 const Login = () => {
+  const router = useRouter()
   return (
     <View>
       <Image source={onboardinImg} style={{ width: "100%", height: 450 }} />
@@ -30,7 +32,10 @@ const Login = () => {
           Personalize your travelling with Ai travel planner. Travel Smartly
           with Ai driven Insights.
         </Text>
-        <View style={styles.button}>
+        <TouchableOpacity
+          onPress={() => router.push("/auth/sign-in")}
+          style={styles.button}
+        >
           <Text
             style={{
               color: Colors.WHITE,
@@ -41,7 +46,7 @@ const Login = () => {
           >
             Sign In with google
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   )
