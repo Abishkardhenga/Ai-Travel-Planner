@@ -40,6 +40,7 @@ const Signup = () => {
         // Signed up
         const user = userCredential.user
         console.log("user ", user)
+        router.replace("/mytrip")
         // ...
       })
       .catch((error) => {

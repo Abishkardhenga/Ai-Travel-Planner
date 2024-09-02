@@ -33,6 +33,7 @@ const Signin = () => {
         // Signed in
         const user = userCredential.user
         console.log("sign in user ", user)
+        router.replace("/mytrip")
         // ...
       })
       .catch((error) => {
