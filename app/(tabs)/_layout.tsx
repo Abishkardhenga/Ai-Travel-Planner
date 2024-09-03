@@ -16,6 +16,7 @@ const _layout = () => {
           tabBarIcon: ({ color }) => (
             <Entypo name="location-pin" size={24} color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
