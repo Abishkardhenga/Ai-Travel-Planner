@@ -7,14 +7,16 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Colors } from "@/constants/Colors"
 import axios from "axios"
 import { geocodeKey } from "@/secrets/secrets"
+import { CreateTripContext } from "@/context/CreateTripContext"
 
 const SearchPlace = () => {
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState<Feature[]>([])
+  const { tripData, setTripData } = useContext(CreateTripContext)
 
   const onFetch = async (text: string) => {
     const apiUrl = `https://api.geocode.earth/v1/autocomplete?api_key=${geocodeKey.key}&text=${text}`
@@ -22,15 +24,19 @@ const SearchPlace = () => {
     try {
       const response = await axios.get(apiUrl)
       const features = response.data.features
-      console.log("features ", features)
 
       if (features && features.length > 0) {
         setSuggestions(features)
+        console.log("lenght of feature ", suggestions.length)
       }
     } catch (error) {
       console.error("Error fetching suggestions: ", error)
     }
   }
+
+  useEffect(() => {
+    console.log("trip data", tripData)
+  }, [tripData])
 
   useEffect(() => {
     if (query.length === 0) {
@@ -70,24 +76,40 @@ const SearchPlace = () => {
           data={suggestions}
           keyExtractor={(item: Feature, index) => index.toString()}
           renderItem={({ item }) => {
-            console.log("item  ", item)
+            console.log("item.properties.name", item.properties.name)
             return (
-              <View>
-                <Text
+              <TouchableOpacity
+                onPress={() =>
+                  setTripData({
+                    country: item.properties.country,
+                    name: item.properties.name,
+                    longitude: item.geometry.coordinates[0],
+                    latitude: item.geometry.coordinates[1],
+                  })
+                }
+              >
+                <View
                   style={{
-                    color: Colors.PRIMARY,
+                    flexDirection: "row",
+                    alignItems: "center",
                   }}
                 >
-                  {item.properties.name}
-                </Text>
-                <Text
-                  style={{
-                    color: Colors.PRIMARY,
-                  }}
-                >
-                  {item.properties.country}
-                </Text>
-              </View>
+                  <Text
+                    style={{
+                      color: Colors.PRIMARY,
+                    }}
+                  >
+                    {item.properties.name} ,
+                  </Text>
+                  <Text
+                    style={{
+                      color: Colors.GRAY,
+                    }}
+                  >
+                    {item.properties.country}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             )
           }}
         />
