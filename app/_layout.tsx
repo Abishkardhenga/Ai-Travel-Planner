@@ -29,6 +29,14 @@ export default function RootLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="create-trip/search-place"
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: "Search",
+        }}
+      />
     </Stack>
   )
 }
