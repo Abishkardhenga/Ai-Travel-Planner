@@ -36,7 +36,7 @@ const SelectBudget = () => {
     if (!selectedOption) {
       alert("Please select any budget")
     } else {
-      router.push("/")
+      router.push("/create-trip/review-trip")
     }
   }
   return (

@@ -24,13 +24,10 @@ const SelectTraveler = () => {
 
     setTripData({
       ...tripData,
-      travelData: item,
+      traveler: item,
     })
   }
 
-  useEffect(() => {
-    console.log("tripdata ", tripData)
-  }, [tripData])
   return (
     <SafeAreaView
       style={{
