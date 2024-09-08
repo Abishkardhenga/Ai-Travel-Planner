@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native"
 import React, { useContext, useEffect, useState } from "react"
-import { useNavigation } from "expo-router"
+import { router, useNavigation } from "expo-router"
 import { Colors } from "@/constants/Colors"
 import CalendarPicker from "react-native-calendar-picker"
 import CustomHeader from "@/components/CustomHeader"
@@ -47,6 +47,7 @@ const SelectDates = () => {
       endDate: endDate,
       totalDays: totalDays! + 1,
     })
+    router.push("/create-trip/select-budget")
   }
 
   return (

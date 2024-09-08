@@ -3,7 +3,7 @@ export type travelerType = {
     title: string, 
     description: string, 
     icon: string, 
-    people: string
+    people?: string
 }
 
 export const SelectTravelerList: travelerType[] = [
@@ -37,3 +37,26 @@ export const SelectTravelerList: travelerType[] = [
         people: "5 to 10 People"
     }
 ];
+
+
+export const SelectBudgetOptions: travelerType[] = [
+    {
+      id: 1,
+      title: "Cheap",
+      description: "Stay consicous of cost",
+      icon: "💸", 
+    },
+    {
+      id: 2,
+      title: "Moderate",
+      description: "Balanced spending  on average",
+      icon: "💵", 
+    },
+    {
+      id: 3,
+      title: "Expensive",
+      description: "Don't worry about cost",
+      icon: "💰", 
+    },
+  ];
+  
