@@ -12,12 +12,14 @@ import { Colors } from "@/constants/Colors"
 import axios from "axios"
 import { geocodeKey } from "@/secrets/secrets"
 import { CreateTripContext } from "@/context/CreateTripContext"
+import CustomHeader from "@/components/CustomHeader"
+import { useRouter } from "expo-router"
 
 const SearchPlace = () => {
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState<Feature[]>([])
   const { tripData, setTripData } = useContext(CreateTripContext)
-
+  const router = useRouter()
   const onFetch = async (text: string) => {
     const apiUrl = `https://api.geocode.earth/v1/autocomplete?api_key=${geocodeKey.key}&text=${text}`
 
@@ -52,12 +54,12 @@ const SearchPlace = () => {
       <View
         style={{
           padding: 25,
-          paddingTop: 25,
+          paddingTop: 15,
           height: "100%",
           backgroundColor: Colors.WHITE,
         }}
       >
-        <Text>Search Place</Text>
+        <CustomHeader text="Search" />
 
         <TextInput
           placeholder="Enter the place"
@@ -67,6 +69,7 @@ const SearchPlace = () => {
             borderColor: Colors.GRAY,
             borderWidth: 1,
             padding: 10,
+            paddingTop: 14,
             borderRadius: 5,
             marginBottom: 20,
           }}
@@ -79,14 +82,15 @@ const SearchPlace = () => {
             console.log("item.properties.name", item.properties.name)
             return (
               <TouchableOpacity
-                onPress={() =>
+                onPress={() => {
                   setTripData({
                     country: item.properties.country,
                     name: item.properties.name,
                     longitude: item.geometry.coordinates[0],
                     latitude: item.geometry.coordinates[1],
                   })
-                }
+                  router.push("/create-trip/select-traveler")
+                }}
               >
                 <View
                   style={{

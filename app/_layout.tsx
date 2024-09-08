@@ -40,7 +40,15 @@ export default function RootLayout() {
         <Stack.Screen
           name="create-trip/search-place"
           options={{
-            headerShown: true,
+            headerShown: false,
+            headerTransparent: true,
+            headerTitle: "Search",
+          }}
+        />
+        <Stack.Screen
+          name="create-trip/select-traveler"
+          options={{
+            headerShown: false,
             headerTransparent: true,
             headerTitle: "Search",
           }}

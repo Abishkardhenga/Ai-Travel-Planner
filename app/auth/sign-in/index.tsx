@@ -11,6 +11,7 @@ import { useNavigation, useRouter } from "expo-router"
 import { Colors } from "@/constants/Colors"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "@/configs/firebase.config"
+import CustomHeader from "@/components/CustomHeader"
 
 const Signin = () => {
   const router = useRouter()
@@ -47,6 +48,8 @@ const Signin = () => {
       <View
         style={{ backgroundColor: Colors.WHITE, height: "100%", padding: 15 }}
       >
+        <CustomHeader text="" />
+
         <Text style={{ fontFamily: "outfit-bold", fontSize: 30 }}>
           Let's Sign You in
         </Text>

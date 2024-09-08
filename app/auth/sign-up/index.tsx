@@ -15,6 +15,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "@/configs/firebase.config"
 import Toast from "react-native-toast-message"
 import { useToast } from "react-native-toast-notifications"
+import CustomHeader from "@/components/CustomHeader"
 
 const Signup = () => {
   const router = useRouter()
@@ -56,6 +57,8 @@ const Signup = () => {
       <View
         style={{ backgroundColor: Colors.WHITE, height: "100%", padding: 15 }}
       >
+        <CustomHeader text="" />
+
         <Text
           style={{
             fontFamily: "outfit-bold",
