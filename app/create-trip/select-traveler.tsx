@@ -6,15 +6,31 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import CustomHeader from "@/components/CustomHeader"
 import { SelectTravelerList } from "@/constants/Options"
 import OptionCard from "@/components/OptionCard"
 import { travelerType } from "@/constants/Options"
 import { Colors } from "@/constants/Colors"
+import { CreateTripContext } from "@/context/CreateTripContext"
+import { router } from "expo-router"
 
 const SelectTraveler = () => {
   const [selectedOptionCard, setSelectedOptionCard] = useState<travelerType>()
+  const { tripData, setTripData } = useContext(CreateTripContext)
+
+  const onPressCard = (item: travelerType) => {
+    setSelectedOptionCard(item)
+
+    setTripData({
+      ...tripData,
+      travelData: item,
+    })
+  }
+
+  useEffect(() => {
+    console.log("tripdata ", tripData)
+  }, [tripData])
   return (
     <SafeAreaView
       style={{
@@ -51,7 +67,7 @@ const SelectTraveler = () => {
           data={SelectTravelerList}
           renderItem={({ item, index }) => (
             <TouchableOpacity
-              onPress={() => setSelectedOptionCard(item)}
+              onPress={() => onPressCard(item)}
               style={{ marginVertical: 10 }}
             >
               <OptionCard
@@ -62,6 +78,7 @@ const SelectTraveler = () => {
           )}
         />
         <TouchableOpacity
+          onPress={() => router.push("/create-trip/select-dates")}
           style={{
             backgroundColor: Colors.PRIMARY,
             position: "absolute",
@@ -77,8 +94,8 @@ const SelectTraveler = () => {
             style={{
               color: Colors.WHITE,
               textAlign: "center",
-              fontFamily: "outfit-medium",
-              fontSize: 20,
+              fontFamily: "outline-medium",
+              fontSize: 18,
             }}
           >
             Continue
