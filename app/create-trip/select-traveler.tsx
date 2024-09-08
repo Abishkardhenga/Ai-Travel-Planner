@@ -25,7 +25,7 @@ const SelectTraveler = () => {
         style={{
           padding: 15,
           height: "100%",
-          backgroundColor: Colors.GRAY,
+          backgroundColor: Colors.WHITE,
         }}
       >
         <CustomHeader text=" " />
