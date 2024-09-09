@@ -10,7 +10,7 @@ import {
 import React, { useContext, useEffect, useState } from "react"
 import { Colors } from "@/constants/Colors"
 import axios from "axios"
-import { geocodeKey } from "@/secrets/secrets"
+import { secret } from "@/secrets/secrets"
 import { CreateTripContext } from "@/context/CreateTripContext"
 import CustomHeader from "@/components/CustomHeader"
 import { useRouter } from "expo-router"
@@ -21,7 +21,7 @@ const SearchPlace = () => {
   const { tripData, setTripData } = useContext(CreateTripContext)
   const router = useRouter()
   const onFetch = async (text: string) => {
-    const apiUrl = `https://api.geocode.earth/v1/autocomplete?api_key=${geocodeKey.key}&text=${text}`
+    const apiUrl = `https://api.geocode.earth/v1/autocomplete?api_key=${secret.geocodeKey}&text=${text}`
 
     try {
       const response = await axios.get(apiUrl)

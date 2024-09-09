@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native"
 import React, { useContext, useEffect } from "react"
-import { useNavigation } from "expo-router"
+import { router, useNavigation } from "expo-router"
 import { CreateTripContext } from "@/context/CreateTripContext"
 import CustomHeader from "@/components/CustomHeader"
 import { Colors } from "@/constants/Colors"
@@ -24,7 +24,9 @@ const ReviewTrip = () => {
     console.log("tripdata", tripData)
   }, [])
 
-  const onBuildTrip = () => {}
+  const onBuildTrip = () => {
+    router.push("/create-trip/generate-trip")
+  }
 
   return (
     <SafeAreaView>
