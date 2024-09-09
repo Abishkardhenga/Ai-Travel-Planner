@@ -28,9 +28,9 @@ const GenerateTrip = () => {
     })
   }, [])
 
-  useEffect(() => {
-    tripData && generateAiTrip()
-  }, [tripData])
+  //   useEffect(() => {
+  //     tripData && generateAiTrip()
+  //   }, [tripData])
   const generateAiTrip = async () => {
     setLoading(true)
     const location = `${tripData.name}, ${tripData.country}`

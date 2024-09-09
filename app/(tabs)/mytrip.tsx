@@ -1,11 +1,48 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import React, { useState } from "react"
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
+import React, { useEffect, useState } from "react"
 import { Colors } from "@/constants/Colors"
 import { Ionicons } from "@expo/vector-icons"
 import StartNewTripCard from "@/components/MyTrips/StartNewTripCard"
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore"
+import { auth, db } from "@/configs/firebase.config"
+import { getAuth } from "firebase/auth"
+import UserTripList from "@/components/MyTrips/UserTripList"
 
 const MyTrip = () => {
-  const [userTrips, setUserTrips] = useState([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [userTrips, setUserTrips] = useState<DocumentData[]>([])
+  const user = getAuth()
+  useEffect(() => {
+    getMyTrips()
+  }, [user])
+
+  const getMyTrips = async () => {
+    setLoading(true)
+    setUserTrips([])
+    const q = query(
+      collection(db, "usertrip"),
+      where("email", "==", user.currentUser?.email)
+    )
+
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data())
+      setUserTrips((prev) => [...prev, doc.data()])
+    })
+    setLoading(false)
+  }
   return (
     <View
       style={{
@@ -30,7 +67,13 @@ const MyTrip = () => {
           <Ionicons name="add-circle" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      {userTrips.length === 0 ? <StartNewTripCard /> : null}
+      {loading && <ActivityIndicator size={"large"} color={Colors.PRIMARY} />}
+
+      {userTrips.length === 0 ? (
+        <StartNewTripCard />
+      ) : (
+        <UserTripList userTrips={userTrips} />
+      )}
     </View>
   )
 }
