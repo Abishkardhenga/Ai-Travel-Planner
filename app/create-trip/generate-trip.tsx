@@ -1,16 +1,26 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native"
 import React, { useContext, useEffect, useState } from "react"
-import { useNavigation } from "expo-router"
+import { router, useNavigation } from "expo-router"
 import { CreateTripContext } from "@/context/CreateTripContext"
 import { Colors } from "@/constants/Colors"
 import CustomHeader from "@/components/CustomHeader"
 import { AI_PROMPT } from "@/constants/Options"
 import { chatSession } from "@/configs/gemini"
+import {
+  addDoc,
+  collection,
+  doc,
+  DocumentReference,
+  setDoc,
+} from "firebase/firestore"
+import { db } from "@/configs/firebase.config"
+import { getAuth } from "firebase/auth"
 
 const GenerateTrip = () => {
   const navigation = useNavigation()
   const { tripData, setTripData } = useContext(CreateTripContext)
   const [loading, setLoading] = useState(false)
+  const auth = getAuth()
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,6 +52,13 @@ const GenerateTrip = () => {
     const result = await chatSession.sendMessage(finalPrompt)
     console.log(result.response.text())
     setLoading(false)
+    const id = Date.now().toString()
+    const docRef = await addDoc(collection(db, "usertrip"), {
+      id: id,
+      email: auth.currentUser?.email,
+      tripdata: JSON.stringify(tripData),
+      tripplan: JSON.parse(result.response.text()),
+    })
   }
 
   return (
