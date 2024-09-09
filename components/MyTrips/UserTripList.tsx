@@ -2,8 +2,13 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native"
 import React from "react"
 import { Colors } from "@/constants/Colors"
 import UserTripCard from "./UserTripCard"
+import { UserTrip } from "@/types/trip.type"
 
-const UserTripList = ({ userTrips }: any) => {
+interface typeTrip {
+  userTrips: UserTrip[]
+}
+const UserTripList = ({ userTrips }: typeTrip) => {
+  console.log("userTrips ", userTrips)
   return (
     <View
       style={{
@@ -26,7 +31,7 @@ const UserTripList = ({ userTrips }: any) => {
           fontSize: 20,
         }}
       >
-        LAS, Vegas , Nv ,Usa{" "}
+        j pai tei
       </Text>
       <View
         style={{

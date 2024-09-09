@@ -16,14 +16,16 @@ import {
   query,
   where,
 } from "firebase/firestore"
-import { auth, db } from "@/configs/firebase.config"
 import { getAuth } from "firebase/auth"
 import UserTripList from "@/components/MyTrips/UserTripList"
+import { UserTrip } from "@/types/trip.type"
+import { db } from "@/configs/firebase.config"
 
 const MyTrip = () => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [userTrips, setUserTrips] = useState<DocumentData[]>([])
+  const [userTrips, setUserTrips] = useState<UserTrip[]>([])
   const user = getAuth()
+
   useEffect(() => {
     getMyTrips()
   }, [user])
@@ -39,10 +41,11 @@ const MyTrip = () => {
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data())
-      setUserTrips((prev) => [...prev, doc.data()])
+      setUserTrips((prev) => [...prev, doc.data() as UserTrip]) // Casting DocumentData to UserTrip
     })
     setLoading(false)
   }
+
   return (
     <View
       style={{
@@ -68,7 +71,6 @@ const MyTrip = () => {
         </TouchableOpacity>
       </View>
       {loading && <ActivityIndicator size={"large"} color={Colors.PRIMARY} />}
-
       {userTrips.length === 0 ? (
         <StartNewTripCard />
       ) : (
