@@ -2,13 +2,14 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native"
 import React from "react"
 import { Colors } from "@/constants/Colors"
 import UserTripCard from "./UserTripCard"
-import { UserTrip } from "@/types/trip.type"
+import { TripData, UserTrip } from "@/types/trip.type"
+import moment from "moment"
 
 interface typeTrip {
   userTrips: UserTrip[]
 }
 const UserTripList = ({ userTrips }: typeTrip) => {
-  console.log("userTrips ", userTrips)
+  const LatestTrip: TripData = JSON.parse(userTrips[0].tripdata)
   return (
     <View
       style={{
@@ -31,7 +32,7 @@ const UserTripList = ({ userTrips }: typeTrip) => {
           fontSize: 20,
         }}
       >
-        j pai tei
+        {LatestTrip.name}, {LatestTrip.country}
       </Text>
       <View
         style={{
@@ -44,14 +45,14 @@ const UserTripList = ({ userTrips }: typeTrip) => {
             color: Colors.GRAY,
           }}
         >
-          04 July 2024
+          {moment(LatestTrip.startDate).format("DD MMM yy")}
         </Text>
         <Text
           style={{
             color: Colors.GRAY,
           }}
         >
-          🚌 Just Me
+          🚌 {LatestTrip.traveler.title}
         </Text>
       </View>
       <View
@@ -78,13 +79,9 @@ const UserTripList = ({ userTrips }: typeTrip) => {
             marginTop: 18,
           }}
         >
-          <UserTripCard />
-          <UserTripCard />
-          <UserTripCard />
-          <UserTripCard />
-          <UserTripCard />
-          <UserTripCard />
-          <UserTripCard />
+          {userTrips.map((item: UserTrip) => {
+            return <UserTripCard item={item} />
+          })}
         </ScrollView>
       </View>
     </View>

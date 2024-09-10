@@ -1,8 +1,15 @@
 import { StyleSheet, Text, View, Image } from "react-native"
 import React from "react"
 import { Colors } from "@/constants/Colors"
+import { TripData, UserTrip } from "@/types/trip.type"
+import moment from "moment"
 
-const UserTripCard = () => {
+interface userTrip {
+  item: UserTrip
+}
+
+const UserTripCard = ({ item }: userTrip) => {
+  const LatestTrip: TripData = JSON.parse(item.tripdata)
   return (
     <View
       style={{
@@ -28,21 +35,21 @@ const UserTripCard = () => {
             fontSize: 20,
           }}
         >
-          LAS, Vegas , Nv ,Usa
+          {LatestTrip.name}, {LatestTrip.country}
         </Text>
         <Text
           style={{
             color: Colors.GRAY,
           }}
         >
-          04 July 2024
+          {moment(LatestTrip.startDate).format("DD MMM yy")}
         </Text>
         <Text
           style={{
             color: Colors.GRAY,
           }}
         >
-          Travelling : Just Me
+          Travelling : {LatestTrip.traveler.title}
         </Text>
       </View>
     </View>

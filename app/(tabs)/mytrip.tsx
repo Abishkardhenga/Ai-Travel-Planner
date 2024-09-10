@@ -1,5 +1,7 @@
 import {
   ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -47,36 +49,41 @@ const MyTrip = () => {
   }
 
   return (
-    <View
-      style={{
-        padding: 25,
-        paddingTop: 30,
-        backgroundColor: Colors.WHITE,
-        height: "100%",
-      }}
-    >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text style={{ fontSize: 35, fontFamily: "outfit-bold" }}>
-          My Trips
-        </Text>
-        <TouchableOpacity>
-          <Ionicons name="add-circle" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-      {loading && <ActivityIndicator size={"large"} color={Colors.PRIMARY} />}
-      {userTrips.length === 0 ? (
-        <StartNewTripCard />
-      ) : (
-        <UserTripList userTrips={userTrips} />
-      )}
-    </View>
+    <SafeAreaView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            padding: 25,
+            backgroundColor: Colors.WHITE,
+            height: "100%",
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ fontSize: 35, fontFamily: "outfit-bold" }}>
+              My Trips
+            </Text>
+            <TouchableOpacity>
+              <Ionicons name="add-circle" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+          {loading && (
+            <ActivityIndicator size={"large"} color={Colors.PRIMARY} />
+          )}
+          {userTrips.length === 0 ? (
+            <StartNewTripCard />
+          ) : (
+            <UserTripList userTrips={userTrips} />
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

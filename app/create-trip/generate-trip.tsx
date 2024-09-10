@@ -53,7 +53,7 @@ const GenerateTrip = () => {
     console.log(result.response.text())
     setLoading(false)
     const id = Date.now().toString()
-    const docRef = await addDoc(collection(db, "usertrip"), {
+    await addDoc(collection(db, "usertrip"), {
       id: id,
       email: auth.currentUser?.email,
       tripdata: JSON.stringify(tripData),
