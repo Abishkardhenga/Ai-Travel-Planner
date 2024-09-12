@@ -1,15 +1,25 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native"
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import React from "react"
 import { Colors } from "@/constants/Colors"
 import UserTripCard from "./UserTripCard"
 import { TripData, UserTrip } from "@/types/trip.type"
 import moment from "moment"
+import { useRouter } from "expo-router"
 
 interface typeTrip {
   userTrips: UserTrip[]
 }
 const UserTripList = ({ userTrips }: typeTrip) => {
   const LatestTrip: TripData = JSON.parse(userTrips[0].tripdata)
+
+  const router = useRouter()
   return (
     <View
       style={{
@@ -55,7 +65,15 @@ const UserTripList = ({ userTrips }: typeTrip) => {
           🚌 {LatestTrip.traveler.title}
         </Text>
       </View>
-      <View
+      <TouchableOpacity
+        onPress={() =>
+          router.push({
+            pathname: "/trip-details",
+            params: {
+              trip: JSON.stringify(userTrips[0].tripdata),
+            },
+          })
+        }
         style={{
           backgroundColor: Colors.PRIMARY,
           padding: 18,
@@ -72,7 +90,7 @@ const UserTripList = ({ userTrips }: typeTrip) => {
         >
           See Your Plan
         </Text>
-      </View>
+      </TouchableOpacity>
       <View>
         <ScrollView
           style={{

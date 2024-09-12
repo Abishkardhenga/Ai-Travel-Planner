@@ -42,7 +42,6 @@ const MyTrip = () => {
 
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data())
       setUserTrips((prev) => [...prev, doc.data() as UserTrip]) // Casting DocumentData to UserTrip
     })
     setLoading(false)
