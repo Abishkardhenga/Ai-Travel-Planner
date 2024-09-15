@@ -20,12 +20,11 @@ const index = () => {
       headerShown: false,
     })
     if (newTrip) {
-      console.log("newTrip", newTrip)
-      console.log("newTrip", newTrip.country)
+      console.log("newTrip ", newTrip)
+      console.log("newTrip country", newTrip.country)
       setTripDetails(newTrip)
-      console.log("tripDetails", tripDetails)
     }
-  }, [])
+  }, [newTrip])
 
   return (
     <SafeAreaView>
@@ -62,12 +61,43 @@ const index = () => {
           >
             {newTrip.name}
             {newTrip.country}
+            dhegan
           </Text>
-          <View>
-            <Text></Text>
-            <Text></Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 5,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "outfit-medium",
+                color: Colors.GRAY,
+                fontSize: 14,
+              }}
+            >
+              05 July 3003
+            </Text>
+            <Text
+              style={{
+                fontFamily: "outfit-medium",
+                fontSize: 14,
+                color: Colors.GRAY,
+              }}
+            >
+              05 July 3003
+            </Text>
           </View>
-          <Text></Text>
+          <Text
+            style={{
+              fontFamily: "outfit",
+              color: Colors.GRAY,
+              fontSize: 14,
+            }}
+          >
+            ✈️ Just Me
+          </Text>
         </View>
       </View>
     </SafeAreaView>
