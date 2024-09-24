@@ -44,6 +44,7 @@ const MyTrip = () => {
     querySnapshot.forEach((doc) => {
       setUserTrips((prev) => [...prev, doc.data() as UserTrip]) // Casting DocumentData to UserTrip
     })
+    console.log("userTrips ", userTrips)
     setLoading(false)
   }
 

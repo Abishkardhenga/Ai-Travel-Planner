@@ -19,6 +19,7 @@ interface typeTrip {
 const UserTripList = ({ userTrips }: typeTrip) => {
   const LatestTrip: TripData = JSON.parse(userTrips[0].tripdata)
 
+  console.log("udrt ytip ", userTrips[0].tripplan)
   const router = useRouter()
   return (
     <View
